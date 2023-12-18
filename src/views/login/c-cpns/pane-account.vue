@@ -21,7 +21,7 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
 import { ElMessage } from 'element-plus'
-import type { FormRules, ElForm } from 'element-plus'
+import type { FormRules, ElForm, ElInput } from 'element-plus'
 import useLoginStore from '@/store/login/login'
 import type { IAccount } from '@/types'
 import { localCache } from '@/utils/cache'
@@ -34,14 +34,13 @@ const account = reactive<IAccount>({
   name: localCache.getCache(CACHE_NAME) ?? '',
   password: localCache.getCache(CACHE_PASSWORD) ?? ''
 })
-
 // 2.定义校验规则
 const accountRules: FormRules = {
   name: [
     { required: true, message: '必须输入帐号信息~', trigger: 'blur' },
     {
-      pattern: /^[a-z0-9]{6,20}$/,
-      message: '必须是6~20数字或字母组成~',
+      pattern: /^[a-z0-9]{3,20}$/,
+      message: '必须是3~20数字或字母组成~',
       trigger: 'blur'
     }
   ],
@@ -59,6 +58,7 @@ const accountRules: FormRules = {
 const formRef = ref<InstanceType<typeof ElForm>>()
 const loginStore = useLoginStore()
 function loginAction(isRemPwd: boolean) {
+  // 进行表单验证功能
   formRef.value?.validate((valid) => {
     if (valid) {
       // 1.获取用户输入的帐号和密码

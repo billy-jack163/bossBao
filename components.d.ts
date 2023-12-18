@@ -9,6 +9,10 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     BarEchart: typeof import('./src/components/page-echarts/src/bar-echart.vue')['default']
     BaseEchart: typeof import('./src/components/page-echarts/src/base-echart.vue')['default']
+    'Category.search': typeof import('./src/components/category-search/category.search.vue')['default']
+    CategoryContent: typeof import('./src/components/category-content/category-content.vue')['default']
+    CategoryModal: typeof import('./src/components/category-modal/category-modal.vue')['default']
+    CategorySearch: typeof import('./src/components/category-search/category-search.vue')['default']
     copy: typeof import('./src/components/page-echarts/src/line-echart copy.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
@@ -28,6 +32,7 @@ declare module '@vue/runtime-core' {
     ElFooter: typeof import('element-plus/es')['ElFooter']
     ElForm: typeof import('element-plus/es')['ElForm']
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
+    ElFromItem: typeof import('element-plus/es')['ElFromItem']
     ElHeader: typeof import('element-plus/es')['ElHeader']
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElInput: typeof import('element-plus/es')['ElInput']

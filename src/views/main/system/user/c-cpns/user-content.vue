@@ -124,6 +124,7 @@ const pageSize = ref(10)
 fetchUserListData()
 
 // 2.获取usersList数据,进行展示
+// pinia提供了响应式方法storeToRefs() 但函数得通过action里面的函数更改，然后进行响应式
 const { usersList, usersTotalCount } = storeToRefs(systemStore)
 
 // 3.页码相关的逻辑
@@ -135,6 +136,7 @@ function handleCurrentChange() {
 }
 
 // 4.定义函数, 用于发送网络请求
+// 点击搜索或者重置后执行该函数
 function fetchUserListData(formData: any = {}) {
   if (!isQuery) return
 
@@ -152,9 +154,11 @@ function fetchUserListData(formData: any = {}) {
 function handleDeleteBtnClick(id: number) {
   systemStore.deleteUserByIdAction(id)
 }
+
 function handleNewUserClick() {
   emit('newClick')
 }
+// 编辑
 function handleEditBtnClick(itemData: any) {
   emit('editClick', itemData)
 }

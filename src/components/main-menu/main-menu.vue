@@ -3,10 +3,11 @@
     <!-- 1.logo -->
     <div class="logo">
       <img class="img" src="@/assets/img/logo.svg" alt="" />
-      <h2 v-show="!isFold" class="title">弘源管理系统</h2>
+      <h2 v-show="!isFold" class="title">包大人后台管理系统</h2>
     </div>
 
     <!-- 2.menu -->
+    <!-- 实现默认选中效果就必须defaultActive的值和subitem.id的值一致，一定是字符串类型 -->
     <div class="menu">
       <el-menu
         :default-active="defaultActive"
@@ -18,6 +19,7 @@
         <!-- 遍历整个菜单 -->
         <template v-for="item in userMenus" :key="item.id">
           <el-sub-menu :index="item.id + ''">
+            <!-- 顶层菜单标题 -->
             <template #title>
               <!-- 字符串: el-icon-monitor => 组件 component动态组件 -->
               <el-icon>
@@ -63,9 +65,9 @@ const userMenus = loginStore.userMenus
 const router = useRouter()
 function handleItemClick(item: any) {
   const url = item.url
+  // 实现页面跳转
   router.push(url)
 }
-
 // 3.ElMenu的默认菜单
 const route = useRoute()
 const defaultActive = computed(() => {

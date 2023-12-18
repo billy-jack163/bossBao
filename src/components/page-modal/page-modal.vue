@@ -94,6 +94,7 @@ const systemStore = useSystemStore()
 
 // 2.定义设置dialogVisible方法
 function setModalVisible(isNew: boolean = true, itemData?: any) {
+  console.log(itemData)
   dialogVisible.value = true
   isNewRef.value = isNew
   if (!isNew && itemData) {

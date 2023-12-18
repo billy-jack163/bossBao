@@ -38,27 +38,31 @@ const useLoginStore = defineStore('login', {
       const userInfoResult = await getUserInfoById(id)
       const userInfo = userInfoResult.data
       this.userInfo = userInfo
-
       // 3.根据角色请求用户的权限(菜单menus)
       const userMenusResult = await getUserMenusByRoleId(this.userInfo.role.id)
       const userMenus = userMenusResult.data
       this.userMenus = userMenus
+      console.log('用户菜单', this.userMenus)
 
       // 4.进行本地缓存
       localCache.setCache('userInfo', userInfo)
       localCache.setCache('userMenus', userMenus)
 
       // 5.请求所有roles/departments数据
+      // 要想使用store里面其他模块的函数,可以调用导出的函数，例如useMainStore
       const mainStore = useMainStore()
       mainStore.fetchEntireDataAction()
 
       // 重要: 获取登录用户的所有按钮的权限
       const permissions = mapMenusToPermissions(userMenus)
       this.permissions = permissions
+      console.log('按钮权限', this.permissions)
 
       // 重要: 动态的添加路由
       const routes = mapMenusToRoutes(userMenus)
-      routes.forEach((route) => router.addRoute('main', route))
+      routes.forEach((route) => {
+        router.addRoute('main', route)
+      })
 
       // 5.页面跳转(main页面)
       router.push('/main')

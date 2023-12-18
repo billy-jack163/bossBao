@@ -38,5 +38,13 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+  // 取消严格模式
+  build: {
+    rollupOptions: {
+      output: {
+        strict: false
+      }
+    }
   }
 })

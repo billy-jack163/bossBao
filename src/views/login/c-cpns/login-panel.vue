@@ -1,7 +1,7 @@
 <template>
   <div class="login-panel">
     <!-- 顶部的标题 -->
-    <h1 class="title">弘源后台管理系统</h1>
+    <h1 class="title">后台管理系统</h1>
 
     <!-- 中间的tabs切换 -->
     <div class="tabs">
@@ -53,10 +53,13 @@ import PaneAccount from './pane-account.vue'
 import PanePhone from './pane-phone.vue'
 
 const activeName = ref('account')
+// 记住密码
+// localCache.getCache('isRemPwd') ?? false 默认传入false
 const isRemPwd = ref<boolean>(localCache.getCache('isRemPwd') ?? false)
 watch(isRemPwd, (newValue) => {
   localCache.setCache('isRemPwd', newValue)
 })
+// 组件类型定义
 const accountRef = ref<InstanceType<typeof PaneAccount>>()
 
 function handleLoginBtnClick() {

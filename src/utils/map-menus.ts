@@ -6,19 +6,20 @@ function loadLocalRoutes() {
   // * 从文件中将所有路由对象先读取数组中
   const localRoutes: RouteRecordRaw[] = []
 
-  // 1.1.读取router/main所有的ts文件
+  // 1.1.读取router/main所有的ts文件 import.meta.glob可以实现自动添加路由
+  // eager: true倾向于直接引入所有模块，假如不加这个参数那就是懒加载
   const files: Record<string, any> = import.meta.glob(
     '../router/main/**/*.ts',
     {
       eager: true
     }
   )
+  console.log(files)
   // 1.2.将加载的对象放到localRoutes
   for (const key in files) {
     const module = files[key]
     localRoutes.push(module.default)
   }
-
   return localRoutes
 }
 
@@ -31,9 +32,12 @@ export function mapMenusToRoutes(userMenus: any[]) {
   const routes: RouteRecordRaw[] = []
   for (const menu of userMenus) {
     for (const submenu of menu.children) {
+      // 动态路由的关键一步
       const route = localRoutes.find((item) => item.path === submenu.url)
+      // 拥有子路由，才让父路由进行重定向
       if (route) {
         // 1.给route的顶层菜单增加重定向功能(但是只需要添加一次即可)
+        //  重定向的目的是当点击了顶层菜单，会自动重定向到子菜单并且只需要重定向一次
         if (!routes.find((item) => item.path === menu.url)) {
           routes.push({ path: menu.url, redirect: route.path })
         }
@@ -52,6 +56,7 @@ export function mapMenusToRoutes(userMenus: any[]) {
  * 根据路径去匹配需要显示的菜单
  * @param path 需要匹配的路径
  * @param userMenus 所有的菜单
+ * 主要的目的是实现左边导航栏选中状态问题
  */
 export function mapPathToMenu(path: string, userMenus: any[]) {
   for (const menu of userMenus) {
@@ -94,6 +99,7 @@ export function mapMenuListToIds(menuList: any[]) {
 
   function recurseGetId(menus: any[]) {
     for (const item of menus) {
+      console.log(item)
       if (item.children) {
         recurseGetId(item.children)
       } else {
@@ -113,10 +119,10 @@ export function mapMenuListToIds(menuList: any[]) {
  */
 export function mapMenusToPermissions(menuList: any[]) {
   const permissions: string[] = []
-
   function recurseGetPermission(menus: any[]) {
     for (const item of menus) {
       if (item.type === 3) {
+        // 此为终止条件
         permissions.push(item.permission)
       } else {
         recurseGetPermission(item.children ?? [])

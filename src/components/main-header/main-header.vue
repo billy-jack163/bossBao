@@ -6,7 +6,9 @@
       </el-icon>
     </div>
     <div class="content">
+      <!-- 顶部导航栏 -->
       <header-crumb />
+      <!-- 个人信息栏 -->
       <header-info />
     </div>
   </div>

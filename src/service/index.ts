@@ -11,8 +11,10 @@ const hyRequest = new HYRequest({
       // 每一个请求都自动携带token
       const token = localCache.getCache(LOGIN_TOKEN)
       if (config.headers && token) {
+        // config.headers.Authorization = 'bears' + token
         // 类型缩小
-        config.headers.Authorization = 'Bearer ' + token
+        // 只有这种属性名写法，才能用扩展运算符来给token值进行空格分隔
+        config.headers['Authorization'] = `bears ${token}`
       }
       return config
     }

@@ -25,6 +25,7 @@ const useMainStore = defineStore('main', {
 
       // 保存数据
       this.entireRoles = rolesResult.data.list
+      console.log(this.entireRoles)
       this.entireDepartments = departmentsResult.data.list
       this.entireMenus = menuResult.data.list
     }

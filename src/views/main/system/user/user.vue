@@ -21,20 +21,23 @@ import UserModal from './c-cpns/user-modal.vue'
 
 // 对content组件的操作
 const contentRef = ref<InstanceType<typeof UserContent>>()
+// 查询
+// formData表格数据
 function handleQueryClick(formData: any) {
   contentRef.value?.fetchUserListData(formData)
 }
+// 重置
 function handleResetClick() {
   contentRef.value?.fetchUserListData()
 }
 
 // 对modal组件的操作
 const modalRef = ref<InstanceType<typeof UserModal>>()
+// 两个函数分别对应的是新建用户和编辑操作
 function handleNewClick() {
   modalRef.value?.setModalVisible()
 }
 function handleEditClick(itemData: any) {
-  console.log(itemData)
   modalRef.value?.setModalVisible(false, itemData)
 }
 </script>

@@ -12,6 +12,3 @@ app.use(icons)
 app.use(store)
 app.use(router)
 app.mount('#app')
-
-console.log('Hello Coderwhy')
-console.log('1111122222')

@@ -15,7 +15,8 @@ import type { HYRequestConfig } from './type'
  */
 
 class HYRequest {
-  instance: AxiosInstance
+  // 相当于只能给子类继承的东西,private访问权限仅限于类的内部
+  protected instance: AxiosInstance
 
   // request实例 => axios的实例
   constructor(config: HYRequestConfig) {
@@ -64,7 +65,7 @@ class HYRequest {
       this.instance
         .request<any, T>(config)
         .then((res) => {
-          // 单词响应的成功拦截处理
+          // 单次响应的成功拦截处理
           if (config.interceptors?.responseSuccessFn) {
             res = config.interceptors.responseSuccessFn(res)
           }

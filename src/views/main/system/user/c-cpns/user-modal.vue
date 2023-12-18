@@ -91,9 +91,11 @@ const systemStore = useSystemStore()
 const { entireRoles, entireDepartments } = storeToRefs(mainStore)
 
 // 2.定义设置dialogVisible方法
+// itemData就是formData
 function setModalVisible(isNew: boolean = true, itemData?: any) {
   dialogVisible.value = true
   isNewRef.value = isNew
+  // !isNew为false
   if (!isNew && itemData) {
     // 编辑数据
     for (const key in formData) {

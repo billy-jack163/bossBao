@@ -18,7 +18,8 @@ const useSystemStore = defineStore('system', {
     usersTotalCount: 0,
 
     pageList: [],
-    pageTotalCount: 0
+    pageTotalCount: 0,
+    number: 10
   }),
   actions: {
     async postUsersListAction(queryInfo: any) {
@@ -29,8 +30,7 @@ const useSystemStore = defineStore('system', {
     },
     async deleteUserByIdAction(id: number) {
       // 1.删除数据操作
-      const deleteResult = await deleteUserById(id)
-      console.log(deleteResult)
+      await deleteUserById(id)
 
       // 2.重新请求新的数据
       this.postUsersListAction({ offset: 0, size: 10 })
@@ -46,7 +46,6 @@ const useSystemStore = defineStore('system', {
     async editUserDataAction(id: number, userInfo: any) {
       // 1.更新用户的数据
       const editResult = await editUserData(id, userInfo)
-      console.log(editResult)
 
       // 2.重新请求新的数据
       this.postUsersListAction({ offset: 0, size: 10 })
@@ -80,7 +79,6 @@ const useSystemStore = defineStore('system', {
     },
     async editPageDataAction(pageName: string, id: number, pageInfo: any) {
       const editResult = await editPageData(pageName, id, pageInfo)
-      console.log(editResult)
       this.postPageListAction(pageName, { offset: 0, size: 10 })
 
       // 获取完整的数据
